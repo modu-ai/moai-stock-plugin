@@ -7,7 +7,7 @@ import re
 import sys
 from urllib.parse import unquote, urlsplit
 
-SKILLS = {"stock-analyst", "stock-report", "peer-compare", "earnings-review",
+SKILLS = {"goose", "goosekr", "stock-analyst", "stock-report", "peer-compare", "earnings-review",
           "event-impact", "watchlist-review", "claim-check", "portfolio-review"}
 WORKFLOWS = {"company_report", "peer_comparison", "earnings", "event",
              "watchlist_update", "claim_verification", "portfolio_consultation"}
@@ -107,7 +107,7 @@ def validate(root):
     contained(root, root / logo)
 
     skill_files = sorted((root / "skills").glob("*/SKILL.md"))
-    require({path.parent.name for path in skill_files} == SKILLS, "expected eight current skill directories")
+    require({path.parent.name for path in skill_files} == SKILLS, "expected ten current skill directories")
     reference_count = 0
     for path in skill_files:
         text = path.read_text(encoding="utf-8")
@@ -140,9 +140,10 @@ def validate(root):
             reference_count += 1
 
     workflow = load_json(root / "skills/stock-report/references/workflow-map.json")
-    require(workflow.get("entry_skill") == "stock-analyst", "unexpected workflow entry")
+    require(workflow.get("entry_skill") == "goosekr", "unexpected workflow entry")
     require(workflow.get("kind") == "declarative_agent_workflow" and workflow.get("host_api") is False,
             "workflow must disclose declarative, non-host-API status")
+    require(workflow.get("entry_aliases") == {"goose": "goosekr", "stock-analyst": "goosekr"}, "invalid entry alias mapping")
     flows = workflow.get("workflows", {})
     require(set(flows) == WORKFLOWS, "expected seven workflow types")
     node_count = 0
@@ -154,7 +155,7 @@ def validate(root):
         require(len(ids) == len(set(ids)), f"{name}: duplicate node ids")
         by_id = {node["id"]: node for node in nodes}
         for node in nodes:
-            require(node.get("skill") in SKILLS - {"stock-analyst"}, f"{name}: unknown or recursive entry skill")
+            require(node.get("skill") in SKILLS - {"goose", "goosekr", "stock-analyst"}, f"{name}: unknown or recursive entry skill")
             require(node.get("mode") in ("leaf", "render"), f"{name}: invalid invocation mode")
             require(isinstance(node.get("phase"), str) and node["phase"], f"{name}: phase required")
             needs = node.get("needs")

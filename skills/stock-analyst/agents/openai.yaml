@@ -1,6 +1,6 @@
 interface:
-  display_name: "MoAI 애널리스트"
-  short_description: "자연어 주식·기업 분석 및 보유자산 상담 요청을 분류하고 필요한 분석 스킬을 연결합니다. 여러 단계가 필요한"
-  default_prompt: "$stock-analyst 스킬로 요청한 분석을 근거와 반대 논거까지 확인해 작성해 주세요."
+  display_name: "MoAI 애널리스트 · 기존 호출"
+  short_description: "원문 조사와 검증을 연결하여 개인의 목적에 맞는 분석을 작성합니다"
+  default_prompt: "$stock-analyst 삼성전자를 심층 분석해 주세요."
 policy:
   allow_implicit_invocation: true

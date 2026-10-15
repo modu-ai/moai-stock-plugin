@@ -161,6 +161,13 @@ def validate(data):
                 require(bool(re.search(r"[.!?。！？][\"'’”)]*$", sentence.strip())), path + " sentence must end with punctuation")
         else:
             text(item.get("text"), path + ".text")
+        content = ' '.join(item['sentences']) if opinion else item['text']
+        highlights = array(item.get('highlights', []), path + '.highlights', 0)
+        require(len(highlights) <= 3, path + ' allows at most 3 highlights')
+        require(len(set(highlights)) == len(highlights), path + ' duplicate highlights')
+        for highlight in highlights:
+            text(highlight, path + '.highlight')
+            require(highlight in content and len(highlight) <= 100, path + ' highlight must be an exact short substring')
         provenance(item, path)
 
     for i, kpi in enumerate(array(data.get("kpis", []), "kpis", 0)):
@@ -241,7 +248,29 @@ def validate(data):
     return {"schema_version": 1, "structural_validation": "valid", "research_verified_by_renderer": False,
             "note": "Only structure, reference integrity, and numeric representability were checked; source truth, arithmetic, completeness, and investment judgment require independent review.",
             "document_type": document_type, "declared_report_status": data["status"], "claims": claims, "charts": chart_count,
-            "opinion_sentence_counts": [len(p["sentences"]) for p in paragraphs]}
+            "opinion_sentence_counts": [len(p["sentences"]) for p in paragraphs],
+            "editorial_quality": editorial_quality(data)}
+
+
+def editorial_quality(data):
+    """Review prompts, not an automatic financial or prose quality certification."""
+    warnings = []
+    paragraphs = data.get('opinion', {}).get('paragraphs', [])
+    lengths = [len(' '.join(p['sentences'])) for p in paragraphs]
+    if data.get('document_type', 'deep_report') == 'deep_report':
+        if paragraphs and all(len(p['sentences']) == 5 for p in paragraphs):
+            warnings.append('All 12 paragraphs stop at the minimum 5 sentences; review depth, not only sentence count.')
+        if lengths and sum(lengths) / len(lengths) < 400:
+            warnings.append('Opinion prose is short relative to the approved detailed-column style; review mechanisms, counterarguments and investor implications. Do not pad.')
+        if data.get('opinion', {}).get('decision_scope') != 'research_priority':
+            warnings.append('Interest-list research priority must be explicitly separated from valuation and personal allocation.')
+        review = data.get('editorial_review', {})
+        for criterion in ('argument_depth', 'decision_scope', 'material_coverage', 'visual_review'):
+            record = review.get(criterion, {}) if isinstance(review, dict) else {}
+            if not isinstance(record, dict) or record.get('status') != 'reviewed' or not isinstance(record.get('evidence'), str) or not record['evidence'].strip():
+                warnings.append('Missing evidenced editorial review: ' + criterion)
+    return {'warnings': warnings, 'opinion_character_counts': lengths,
+            'requires_editorial_review': bool(warnings), 'quality_certified_by_renderer': False}
 
 
 def esc(value):
@@ -270,7 +299,14 @@ def refs(item, source_numbers=None):
 
 def para(item, opinion=False, source_numbers=None):
     content = ' '.join(item["sentences"]) if opinion else item["text"]
-    return '<p>' + esc(content) + ' ' + refs(item, source_numbers) + '</p>'
+    highlights = item.get('highlights', [])
+    if highlights:
+        pattern = '(' + '|'.join(re.escape(s) for s in sorted(highlights, key=len, reverse=True)) + ')'
+        content = ''.join('<strong class="key-number">' + esc(s) + '</strong>' if s in highlights else esc(s)
+                          for s in re.split(pattern, content))
+    else:
+        content = esc(content)
+    return '<p>' + content + ' ' + refs(item, source_numbers) + '</p>'
 
 
 def icon(index):
@@ -338,7 +374,7 @@ def table_markup(headers, rows):
     return '<div class="table-wrap"><table><thead><tr>' + head + '</tr></thead><tbody>' + body + '</tbody></table></div>'
 
 
-def render_html(data):
+def render_html(data, artifact_bytes=None):
     validate(data)
     css = (ASSETS / 'report.css').read_text(encoding='utf-8')
     logo = base64.b64encode((ASSETS / 'modu-stock-wordmark.png').read_bytes()).decode('ascii')
@@ -390,6 +426,18 @@ def render_html(data):
             content += '<p class="notice">시도한 경로: ' + esc(s['attempts']) + '<br>판단 영향: ' + esc(s['impact']) + '</p>'
         content += '</li>'
     content += '</ol><details><summary>검증 범위 안내</summary><p class="caption">자료 대조 상태는 작성자의 입력 선언입니다. 문서 생성 과정에서는 구조·출처 연결·문장 수를 검사하며 사실의 진실성·계산의 정확성·조사 완전성은 별도 검토 대상입니다.</p></details></section><footer class="actions"><a href="report-input.json" download>입력 원문 JSON</a><a href="source-ledger.json" download>자료 장부 JSON</a><a href="render-validation.json" download>구조 검증 기록</a><span>브라우저의 인쇄 메뉴에서 PDF로 저장할 수 있습니다.</span></footer>'
+    if artifact_bytes is None:
+        input_bytes = (json.dumps(data, ensure_ascii=False, indent=2) + '\n').encode('utf-8')
+        validation = validate(data)
+        validation['input_sha256'] = hashlib.sha256(input_bytes).hexdigest()
+        artifact_bytes = {
+            'report-input.json': input_bytes,
+            'source-ledger.json': (json.dumps({'as_of': data['as_of'], 'sources': data['sources']}, ensure_ascii=False, indent=2) + '\n').encode('utf-8'),
+            'render-validation.json': (json.dumps(validation, ensure_ascii=False, indent=2) + '\n').encode('utf-8'),
+        }
+    for filename, payload in artifact_bytes.items():
+        href = 'data:application/json;base64,' + base64.b64encode(payload).decode('ascii')
+        content = content.replace('href="' + filename + '" download', 'href="' + href + '" download="' + filename + '"')
     rail_note = '관심목록 조사 우선순위에 대한 의견입니다. 거래 실행이나 매수·매도 지시가 아닙니다.' if 'opinion' in data else '자료의 기준일과 범위를 함께 살펴봅니다. 근거 번호를 누르면 자료 장부로 이동합니다.'
     fonts = '<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&amp;display=swap">'
     return '<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>' + esc(title + ' — 모두의 주식') + '</title>' + fonts + '<style>' + css + '</style></head><body><main>' + masthead + hero + '<div class="reading-layout"><aside class="reading-rail"><div class="rail-inner"><details open><summary>보고서 목차</summary><nav aria-label="보고서 목차">' + nav + '</nav></details><p class="rail-note">' + rail_note + '</p></div></aside><article>' + content + '</article></div></main></body></html>'
@@ -425,13 +473,18 @@ def main(argv=None):
             output = args.output_dir
             names = ('report.html', 'report-input.json', 'source-ledger.json', 'render-validation.json')
             require(args.input.resolve() not in [(output / name).resolve() for name in names], 'input must be outside generated output files; use a separate input filename/directory')
-            rendered = render_html(data)
+            artifacts = {
+                'report-input.json': raw,
+                'source-ledger.json': (json.dumps({'as_of': data['as_of'], 'document_type': data.get('document_type', 'deep_report'), **({'company': data['company']} if 'company' in data else {}), **({'document': data['document']} if 'document' in data else {}), 'sources': data['sources']}, ensure_ascii=False, indent=2) + '\n').encode('utf-8'),
+                'render-validation.json': (json.dumps(evidence, ensure_ascii=False, indent=2) + '\n').encode('utf-8'),
+            }
+            rendered = render_html(data, artifacts)
             output.mkdir(parents=True, exist_ok=True)
             (output / 'report.html').write_text(rendered, encoding='utf-8')
             (output / 'report-input.json').write_bytes(raw)
             (output / 'source-ledger.json').write_text(json.dumps({'as_of': data['as_of'], 'document_type': data.get('document_type', 'deep_report'), **({'company': data['company']} if 'company' in data else {}), **({'document': data['document']} if 'document' in data else {}), 'sources': data['sources']}, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
             (output / 'render-validation.json').write_text(json.dumps(evidence, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-        print(json.dumps({'structural_validation': 'valid', 'research_verified_by_renderer': False, 'opinion_sentence_counts': evidence['opinion_sentence_counts'], 'output': str(args.output_dir / 'report.html') if not args.validate_only else None}, ensure_ascii=False))
+        print(json.dumps({'structural_validation': 'valid', 'research_verified_by_renderer': False, 'opinion_sentence_counts': evidence['opinion_sentence_counts'], 'editorial_quality': evidence['editorial_quality'], 'output': str(args.output_dir / 'report.html') if not args.validate_only else None}, ensure_ascii=False))
         return 0
     except (ValidationError, OSError, ValueError, TypeError, OverflowError) as exc:
         print('Report validation/rendering failed: ' + str(exc), file=sys.stderr)

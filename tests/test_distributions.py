@@ -44,7 +44,10 @@ class DistributionTests(unittest.TestCase):
                         self.assertIn('SKILL.md', files)
                         self.assertEqual(sum(name.endswith('SKILL.md') for name in files), 1)
                         for skill in builder.SKILLS:
-                            self.assertEqual(files['workflows/' + skill + '/GUIDE.md'], (ROOT / 'skills' / skill / 'SKILL.md').read_bytes())
+                            expected = (ROOT / 'skills' / skill / 'SKILL.md').read_bytes()
+                            for sibling in builder.SKILLS:
+                                expected = expected.replace(('../' + sibling + '/SKILL.md').encode(), ('../' + sibling + '/GUIDE.md').encode())
+                            self.assertEqual(files['workflows/' + skill + '/GUIDE.md'], expected)
                     else:
                         for name in builder.RUNTIME:
                             self.assertEqual(files[name], (ROOT / name).read_bytes())

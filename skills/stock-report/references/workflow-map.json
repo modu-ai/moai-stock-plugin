@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "entry_skill": "stock-analyst",
+  "entry_skill": "goosekr",
   "kind": "declarative_agent_workflow",
   "host_api": false,
   "rules": [
@@ -383,7 +383,11 @@
   "execution": {
     "conditional_dependencies": "Skipped nodes deliver a structured skipped result with reason; pending required input is not skipped as complete.",
     "fanout": "For multiple tickers scope each independent node by ticker; reuse matching inputs.",
-    "composition": "Union compatible workflows and deduplicate by work key. No descendant invokes stock-analyst.",
+    "composition": "Union compatible workflows and deduplicate by work key. No descendant invokes goose, goosekr or stock-analyst.",
     "failure": "Return to owning node only for specific fix/new evidence; unchanged blocked input cannot loop."
+  },
+  "entry_aliases": {
+    "goose": "goosekr",
+    "stock-analyst": "goosekr"
   }
 }

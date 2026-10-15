@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build offline, allowlisted platform adapters from the canonical eight skills."""
+"""Build offline, allowlisted platform adapters from the canonical skills."""
 import argparse
 import hashlib
 import json
@@ -11,9 +11,9 @@ from urllib.parse import unquote, urlsplit
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
-SKILLS = ('stock-analyst', 'stock-report', 'peer-compare', 'earnings-review',
+SKILLS = ('goose', 'goosekr', 'stock-analyst', 'stock-report', 'peer-compare', 'earnings-review',
           'event-impact', 'watchlist-review', 'claim-check', 'portfolio-review')
-RUNTIME = tuple('skills/' + skill + '/SKILL.md' for skill in SKILLS) + (
+RUNTIME = ('agents/goose.md',) + tuple('skills/' + skill + '/SKILL.md' for skill in SKILLS) + (
     'skills/stock-report/references/agent-team.md',
     'skills/stock-report/references/report-input.md',
     'skills/stock-report/references/report-standard.md',
@@ -103,8 +103,8 @@ def browser_entry():
         '---', 'name: moai-stock-browser',
         'description: 한국어 주식·기업 분석과 보유자산 점검을 원문 근거로 수행하고 전자잉크 스타일 보고서를 작성합니다. 종목 분석, 기업 비교, 실적, 사건, 관심종목 재점검, 팩트체크, 포트폴리오 상담에 사용합니다.',
         '---', '', '# 모두의 주식 — 브라우저용 통합 스킬', '',
-        '이 스킬은 공통 여덟 업무 지침을 하나의 자기완결 묶음으로 제공합니다. 사용자의 자연어 요청을 먼저 분류하고 필요한 지침만 읽습니다. 아래 GUIDE.md는 이 통합 스킬의 참조 자료이며 별도의 설치된 스킬이나 실행 도구가 아닙니다.', '',
-        '1. [총괄 진입점](workflows/stock-analyst/GUIDE.md)과 [실행 지도](workflows/stock-report/references/workflow-map.json)를 읽습니다.',
+        '이 스킬은 일곱 전문 업무와 Goose 진입·총괄·호환 지침을 하나의 자기완결 묶음으로 제공합니다. 사용자의 자연어 요청을 먼저 분류하고 필요한 지침만 읽습니다. 아래 GUIDE.md는 이 통합 스킬의 참조 자료이며 별도의 설치된 스킬이나 실행 도구가 아닙니다.', '',
+        '1. [총괄 진입점](workflows/goosekr/GUIDE.md)과 [실행 지도](workflows/stock-report/references/workflow-map.json)를 읽습니다.',
         '2. 선택한 업무 지침과 상대경로로 연결된 조사·역할·보고서 계약을 적용합니다. 각 상대경로의 기준은 해당 GUIDE.md가 있는 업무 폴더입니다.',
         '3. 네이티브 하위 에이전트 도구가 없으면 조사→분석→반대 근거 점검→편집을 순차 수행하고 실제 실행 방식으로 기록합니다. 여러 에이전트가 실행됐다고 꾸미지 않습니다.',
         '4. 검색·원문 열람·파일 작성·Python 실행 기능은 현재 환경에서 제공되는 것만 사용합니다. 제공되지 않는 도구를 지침이 생성해 주지는 않습니다.',
@@ -130,7 +130,7 @@ def collect(root, platform):
     version = identity['version']
     require(re.fullmatch(r'\d+\.\d+\.\d+(?:[-+][A-Za-z0-9.-]+)?', version), 'Unsafe or invalid version')
     present = {p.parent.name for p in (root / 'skills').glob('*/SKILL.md')}
-    require(present == set(SKILLS), 'Canonical skill inventory differs from eight-skill distribution contract')
+    require(present == set(SKILLS), 'Canonical skill inventory differs from canonical distribution contract')
     files = {name: read_allowed(root, name) for name in RUNTIME}
     mapping = {name: name for name in RUNTIME}
     if platform == 'openai':
@@ -165,12 +165,14 @@ def collect(root, platform):
     elif platform == 'browser-skill':
         renamed, mapping = {}, {}
         for name, data in files.items():
-            target = 'workflows/' + name.removeprefix('skills/')
+            target = name if name.startswith('agents/') else 'workflows/' + name.removeprefix('skills/')
             if target.endswith('/SKILL.md'):
                 target = target[:-len('SKILL.md')] + 'GUIDE.md'
             # Repository-only test commands are not a browser execution dependency.
             if target.endswith('.md'):
                 data = data.decode('utf-8').replace('python3 tests/renderer-test.py\n', '').replace('python3 -m unittest discover -s tests -v\n', '').encode('utf-8')
+                for skill in SKILLS:
+                    data = data.replace(('../' + skill + '/SKILL.md').encode(), ('../' + skill + '/GUIDE.md').encode())
             renamed[target] = data
             mapping[target] = name
         files = renamed

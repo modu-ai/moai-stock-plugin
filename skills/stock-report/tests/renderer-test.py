@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Synthetic fixtures only: no investment or company facts in this test suite."""
 import copy
+import base64
 import importlib.util
 import json
 from pathlib import Path
@@ -44,6 +45,35 @@ def fixture(name='가상회사 A', ticker='SYNTHETIC-A'):
 class RendererTests(unittest.TestCase):
     def setUp(self):
         self.data = fixture()
+
+    def test_minimum_prose_does_not_silently_pass_editorial_quality(self):
+        evidence = renderer.validate(self.data)
+        self.assertEqual(evidence['structural_validation'], 'valid')
+        self.assertTrue(evidence['editorial_quality']['requires_editorial_review'])
+        self.assertFalse(evidence['editorial_quality']['quality_certified_by_renderer'])
+        self.assertTrue(any('minimum 5' in x for x in evidence['editorial_quality']['warnings']))
+
+    def test_safe_highlights_preserve_text_and_reject_absent_phrases(self):
+        item = self.data['summary'][0]
+        item['highlights'] = ['합성 시험']
+        self.assertIn('<strong class="key-number">합성 시험</strong>', renderer.render_html(self.data))
+        item['highlights'] = ['없는 숫자 999']
+        with self.assertRaises(renderer.ValidationError):
+            renderer.validate(self.data)
+        item['text'] = '태그 <script>alert(1)</script> 표시는 텍스트입니다.'
+        item['highlights'] = ['<script>alert(1)</script>']
+        rendered = renderer.render_html(self.data)
+        self.assertNotIn('<script>', rendered)
+        self.assertIn('&lt;script&gt;', rendered)
+
+    def test_standalone_html_embeds_downloadable_evidence(self):
+        rendered = renderer.render_html(self.data)
+        pairs = re.findall(r'href="data:application/json;base64,([^"]+)" download="([^"]+)"', rendered)
+        artifacts = {name: base64.b64decode(payload) for payload, name in pairs}
+        self.assertEqual(set(artifacts), {'report-input.json', 'source-ledger.json', 'render-validation.json'})
+        self.assertEqual(json.loads(artifacts['report-input.json']), self.data)
+        import hashlib
+        self.assertEqual(json.loads(artifacts['render-validation.json'])['input_sha256'], hashlib.sha256(artifacts['report-input.json']).hexdigest())
 
     def test_portable_cli_preserves_original_and_records_scope(self):
         with tempfile.TemporaryDirectory() as tmp:

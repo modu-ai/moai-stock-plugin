@@ -134,3 +134,11 @@ python3 tests/renderer-test.py
 ```
 
 위 예시는 루트 구조 설명용입니다. 문자열 자리표시자를 실제 객체로 대체해야 실행됩니다. 일반 문서는 최소 한 섹션이 필요하며 `opinion`을 넣지 않으면 판단 카드도 생성하지 않습니다. 생성기의 구조 검사 설명은 표지가 아닌 자료 장부의 **검증 범위 안내**에 표시합니다.
+
+## 편집 품질과 독립 파일 전달
+
+문단 객체에는 선택적으로 `highlights:["원문에 있는 핵심 수치", "판단"]`를 넣습니다. 최대 3개·각 100자 이내이며 실제 문단의 정확한 부분 문자열이어야 합니다. HTML은 계속 이스케이프합니다. `opinion.decision_scope:"research_priority"`로 관심목록 판단의 범위를 명시합니다.
+
+선택 메타데이터 `editorial_review`는 argument_depth, decision_scope, material_coverage, visual_review의 상태와 실제 근거를 담습니다. 생성기의 `editorial_quality`는 문단 밀도·최소 문장수 패턴과 누락 검토를 경고할 뿐 내용 품질을 인증하지 않습니다. 기준 미달을 임의로 숨기지 않습니다. 수익성·시장 전망 등 사실의 검증은 별도입니다.
+
+단일 report.html에 입력 JSON·출처 JSON·구조검증 JSON을 다운로드 데이터로 내장합니다. CLI 출력의 입력 원본 바이트와 SHA-256을 보존합니다. 다른 조사 메모까지 한 HTML에 포함되는 것은 아니므로 전체 기록은 별도 ZIP으로 제공합니다.
