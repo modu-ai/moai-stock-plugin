@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SKILLS = ('goose', 'goosekr', 'stock-analyst', 'stock-report', 'peer-compare', 'earnings-review',
           'event-impact', 'watchlist-review', 'claim-check', 'portfolio-review')
 RUNTIME = ('agents/goose.md',) + tuple('skills/' + skill + '/SKILL.md' for skill in SKILLS) + (
+    'skills/goosekr/references/goose-agent.md',
     'skills/stock-report/references/agent-team.md',
     'skills/stock-report/references/report-input.md',
     'skills/stock-report/references/report-standard.md',
@@ -180,6 +181,9 @@ def collect(root, platform):
         prefix = 'moai-stock-browser'
     else:
         raise BuildError('Unknown platform')
+    if platform == 'openai':
+        projected = {name: data for name, data in files.items() if name.startswith('skills/')}
+        require(not local_link_errors(projected), 'OpenAI skill references must resolve inside the skills projection')
     errors = local_link_errors(files)
     require(not errors, 'Missing bundled reference: ' + '; '.join(errors))
     require(sum(map(len, files.values())) < 100 * 1024 * 1024, 'Skill exceeds 100 MB upload limit')

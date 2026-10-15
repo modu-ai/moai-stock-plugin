@@ -24,6 +24,19 @@ def copy_fixture(destination):
 
 
 class DistributionTests(unittest.TestCase):
+    def test_openai_skill_only_projection_retains_coordinator_definition(self):
+        _, _, files = builder.collect(ROOT, 'openai')
+        projected = {name: data for name, data in files.items() if name.startswith('skills/')}
+        self.assertEqual(builder.local_link_errors(projected), [])
+        self.assertIn('skills/goosekr/references/goose-agent.md', projected)
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            copy_fixture(root)
+            command = root / 'skills/goose/SKILL.md'
+            command.write_text(command.read_text().replace('../goosekr/references/goose-agent.md', '../../agents/goose.md'))
+            with self.assertRaises(builder.BuildError):
+                builder.collect(root, 'openai')
+
     def test_four_archives_reproducible_and_reference_complete(self):
         with tempfile.TemporaryDirectory() as tmp:
             first, second = Path(tmp) / 'first', Path(tmp) / 'second'
