@@ -2,7 +2,7 @@
 
 이 확장은 공통 `skills/`의 업무 지침과 로컬 계산·보고서 스크립트를 제공합니다. MCP 서버·API 키·별도 네트워크 서비스·자동 실행 훅을 등록하지 않습니다.
 
-주식·기업 분석이나 보유자산 점검 요청에는 [자연어 분석 진입점](skills/stock-analyst/SKILL.md)을 읽고 필요한 업무만 연결합니다. [조사 계약](skills/stock-report/references/research-contract.md), [실행 지도](skills/stock-report/references/workflow-map.json), [역할 계약](skills/stock-report/references/agent-team.md)을 공통 기준으로 사용합니다.
+주식·기업 분석이나 보유자산 점검 요청에는 [자연어 분석 진입점](skills/goose/workflows/stock-analyst/GUIDE.md)을 읽고 필요한 업무만 연결합니다. [조사 계약](skills/goose/workflows/stock-report/references/research-contract.md), [실행 지도](skills/goose/workflows/stock-report/references/workflow-map.json), [역할 계약](skills/goose/workflows/stock-report/references/agent-team.md)을 공통 기준으로 사용합니다.
 
 실제 환경에 있는 검색·원문 열람·파일 작성·Python 실행 기능을 먼저 확인합니다. 기능이 없으면 완료한 것처럼 표시하지 않습니다. 에이전트 분업을 지원하고 권한이 있는 경우에만 병렬 작업을 사용합니다. 그렇지 않으면 같은 담당 역할을 순차로 수행하고 `sequential` 실행임을 결과에 기록합니다. 스킬 이름이 지침에 있다고 별도 실행 엔진이나 하위 에이전트가 생기는 것은 아닙니다.
 

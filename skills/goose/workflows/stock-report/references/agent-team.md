@@ -9,7 +9,7 @@
 | 뉴스 조사 에이전트 | event-impact | 대상·기준일·쟁점 | news-notes.md, 사건·출처 조각 | 원 언론, 사건일, 회사 반론, 후속 정정 |
 | 산업·경쟁사 분석 에이전트 | peer-compare | 사업 범위·비교 대상 | industry-notes.md, 비교 지표 조각 | 회계기간·부문범위, 공급·계약·고객 투자 |
 | 보유자산 상담 에이전트 | portfolio-review | 사용자 입력·목표·시세·환율 | portfolio-analysis.json, 상담 메모 | 원가·비중·현금, 목표 조건·부분계좌 |
-| 팩트체크 에이전트 | claim-check | 주장·출처·계산·초안 | review.md, 결함/수정 상태 | 독립 원문 대조, 반증 누락, 요약 과장 |
+| 팩트체크 에이전트 | fact-check | 주장·출처·계산·초안 | review.md, 결함/수정 상태 | 독립 원문 대조, 반증 누락, 요약 과장 |
 | 보고서 편집 에이전트 | stock-report | 통합 메모·원장·검토 | report.md, report-input.json, report.html | 승인한 디자인·존대 문체, 출처와 결론 일치 |
 
 역할별 메모 계약: `{role, task, status, claims, metrics, sources, counterarguments, limitations, output_paths}`. 총괄이 ID 충돌을 제거하고 공통 원장으로 합칩니다. 자산 상담 입력 전체를 뉴스 담당에게 전달하지 말고 필요한 종목명만 전달합니다.

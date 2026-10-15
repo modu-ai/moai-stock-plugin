@@ -10,8 +10,8 @@ import sys
 
 ROOT = Path(__file__).resolve().parent.parent
 HERE = Path(__file__).resolve().parent
-RENDERER = ROOT / 'skills/stock-report/scripts/render_report.py'
-CALCULATOR = ROOT / 'skills/portfolio-review/scripts/portfolio_calc.py'
+RENDERER = ROOT / 'skills/goose/workflows/stock-report/scripts/render_report.py'
+CALCULATOR = ROOT / 'skills/goose/workflows/portfolio-review/scripts/portfolio_calc.py'
 
 
 class LinkCheck(HTMLParser):

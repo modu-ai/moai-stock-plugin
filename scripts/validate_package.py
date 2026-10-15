@@ -8,9 +8,9 @@ import sys
 from urllib.parse import unquote, urlsplit
 
 SKILLS = {"goose", "goosekr", "stock-analyst", "stock-report", "peer-compare", "earnings-review",
-          "event-impact", "watchlist-review", "claim-check", "portfolio-review"}
+          "event-impact", "watchlist-review", "fact-check", "portfolio-review", "market-close"}
 WORKFLOWS = {"company_report", "peer_comparison", "earnings", "event",
-             "watchlist_update", "claim_verification", "portfolio_consultation"}
+             "watchlist_update", "claim_verification", "portfolio_consultation", "market_close"}
 
 
 def require(condition, message):
@@ -107,7 +107,10 @@ def validate(root):
     contained(root, root / logo)
 
     skill_files = sorted((root / "skills").glob("*/SKILL.md"))
-    require({path.parent.name for path in skill_files} == SKILLS, "expected ten current skill directories")
+    require({path.parent.name for path in skill_files} == {"goose"}, "expected only Goose as installed skill")
+    require(len(list((root / "skills").rglob("SKILL.md"))) == 1, "nested installable skill found")
+    for name in SKILLS - {"goose"}:
+        contained(root, root / "skills/goose/workflows" / name / "GUIDE.md")
     reference_count = 0
     for path in skill_files:
         text = path.read_text(encoding="utf-8")
@@ -139,13 +142,13 @@ def validate(root):
             contained(root, path.parent / relative)
             reference_count += 1
 
-    workflow = load_json(root / "skills/stock-report/references/workflow-map.json")
+    workflow = load_json(root / "skills/goose/workflows/stock-report/references/workflow-map.json")
     require(workflow.get("entry_skill") == "goosekr", "unexpected workflow entry")
     require(workflow.get("kind") == "declarative_agent_workflow" and workflow.get("host_api") is False,
             "workflow must disclose declarative, non-host-API status")
     require(workflow.get("entry_aliases") == {"goose": "goosekr", "stock-analyst": "goosekr"}, "invalid entry alias mapping")
     flows = workflow.get("workflows", {})
-    require(set(flows) == WORKFLOWS, "expected seven workflow types")
+    require(set(flows) == WORKFLOWS, "expected eight workflow types")
     node_count = 0
     for name, flow in flows.items():
         nodes = flow.get("nodes")

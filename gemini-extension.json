@@ -1,6 +1,6 @@
 {
   "name": "moai-stock-plugin",
-  "version": "0.1.4",
+  "version": "0.3.0",
   "description": "공시·뉴스·산업 근거를 분석하고 검증하는 한국어 AI 애널리스트와 재사용 가능한 보고서 템플릿",
   "contextFileName": "GEMINI.md"
 }

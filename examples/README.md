@@ -29,9 +29,9 @@ python3 examples/rebuild_examples.py
 개별 실행:
 
 ```sh
-python3 skills/portfolio-review/scripts/portfolio_calc.py examples/portfolio/portfolio-input.json --output examples/portfolio/calculation.json
-python3 skills/stock-report/scripts/render_report.py --input examples/portfolio/report-input.json --output-dir examples/portfolio/output
-python3 skills/stock-report/scripts/render_report.py --input examples/briefing/report-input.json --output-dir examples/briefing/output
+python3 skills/goose/workflows/portfolio-review/scripts/portfolio_calc.py examples/portfolio/portfolio-input.json --output examples/portfolio/calculation.json
+python3 skills/goose/workflows/stock-report/scripts/render_report.py --input examples/portfolio/report-input.json --output-dir examples/portfolio/output
+python3 skills/goose/workflows/stock-report/scripts/render_report.py --input examples/briefing/report-input.json --output-dir examples/briefing/output
 ```
 
 계산 입력을 수정했다면 전체 재생성 명령을 사용해야 보고서 값까지 갱신됩니다. 이 예시 재생성기는 원화 기준의 완전한 합성 평가값과 목표 미제공 상태를 전제로 합니다. 결측·외화·목표 시나리오는 계산기 테스트와 별도 보고서 입력으로 검증합니다. 실제 계좌 내용을 이 공개 예시 폴더에 넣지 않습니다.

@@ -1,8 +1,3 @@
----
-name: claim-check
-description: 주식·기업 분석의 특정 주장이나 보고서를 원자료·계산·반대 근거와 대조하여 사실·전망·추론 및 오류·확인 한계를 판정합니다.
----
-
 # 독립 근거 검토
 
 [조사 계약](../stock-report/references/research-contract.md)과 [역할 계약](../stock-report/references/agent-team.md)을 읽습니다. 검토 대상 원문·주장목록·출처·계산을 받고 작성자의 결론/PASS를 증거로 대신하지 않습니다. 핵심 주장과 중요한 반론을 직접 읽은 원자료에 대조합니다.

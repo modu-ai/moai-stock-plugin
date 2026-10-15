@@ -46,7 +46,7 @@
         },
         {
           "id": "review",
-          "skill": "claim-check",
+          "skill": "fact-check",
           "mode": "leaf",
           "phase": "analyze",
           "needs": [
@@ -86,7 +86,7 @@
         },
         {
           "id": "review",
-          "skill": "claim-check",
+          "skill": "fact-check",
           "mode": "leaf",
           "phase": "analyze",
           "needs": [
@@ -124,7 +124,7 @@
         },
         {
           "id": "review",
-          "skill": "claim-check",
+          "skill": "fact-check",
           "mode": "leaf",
           "phase": "analyze",
           "needs": [
@@ -163,7 +163,7 @@
         },
         {
           "id": "review",
-          "skill": "claim-check",
+          "skill": "fact-check",
           "mode": "leaf",
           "phase": "analyze",
           "needs": [
@@ -243,7 +243,7 @@
         },
         {
           "id": "review",
-          "skill": "claim-check",
+          "skill": "fact-check",
           "mode": "leaf",
           "phase": "analyze",
           "needs": [
@@ -273,7 +273,7 @@
       "nodes": [
         {
           "id": "review",
-          "skill": "claim-check",
+          "skill": "fact-check",
           "mode": "leaf",
           "phase": "analyze",
           "needs": []
@@ -360,7 +360,7 @@
         },
         {
           "id": "review",
-          "skill": "claim-check",
+          "skill": "fact-check",
           "mode": "leaf",
           "phase": "analyze",
           "needs": [
@@ -378,6 +378,73 @@
           "when": "HTML requested"
         }
       ]
+    },
+    "market_close": {
+      "examples": [
+        "국내 증시 마감 리포트 만들어줘",
+        "미국 증시 마감 보고서를 매일 예약해줘"
+      ],
+      "required": [
+        "market",
+        "trade_date",
+        "timezone"
+      ],
+      "deliverable": "정규장 마감 HTML · 출처 · 검증 · 예약 상태",
+      "nodes": [
+        {
+          "id": "session",
+          "skill": "market-close",
+          "mode": "leaf",
+          "phase": "prepare",
+          "needs": []
+        },
+        {
+          "id": "market",
+          "skill": "market-close",
+          "mode": "leaf",
+          "phase": "analyze",
+          "needs": [
+            "session"
+          ]
+        },
+        {
+          "id": "news",
+          "skill": "event-impact",
+          "mode": "leaf",
+          "phase": "analyze",
+          "needs": [
+            "session"
+          ]
+        },
+        {
+          "id": "synthesis",
+          "skill": "market-close",
+          "mode": "leaf",
+          "phase": "compose",
+          "needs": [
+            "market",
+            "news"
+          ]
+        },
+        {
+          "id": "review",
+          "skill": "fact-check",
+          "mode": "leaf",
+          "phase": "analyze",
+          "needs": [
+            "synthesis"
+          ]
+        },
+        {
+          "id": "report",
+          "skill": "stock-report",
+          "mode": "render",
+          "phase": "render",
+          "needs": [
+            "review"
+          ]
+        }
+      ]
     }
   },
   "execution": {
@@ -389,5 +456,7 @@
   "entry_aliases": {
     "goose": "goosekr",
     "stock-analyst": "goosekr"
-  }
+  },
+  "installed_skill": "goose",
+  "module_base": "workflows"
 }
