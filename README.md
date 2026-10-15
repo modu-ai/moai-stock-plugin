@@ -15,12 +15,12 @@
 <p align="center">
   <a href="https://moai-stock.goos.chatgpt.site"><strong>SK하이닉스 보고서 미리 보기 →</strong></a>
   &nbsp;·&nbsp;
-  <a href="https://moai-stock.goos.chatgpt.site/quickstart.html">설치 킥스타트</a> &nbsp;·&nbsp; <a href="ROADMAP.md">다음 버전 로드맵</a>
+  <a href="https://moai-stock.goos.chatgpt.site/quickstart">설치 퀵스타트</a> &nbsp;·&nbsp; <a href="ROADMAP.md">다음 버전 로드맵</a>
 </p>
 
-공시·뉴스·산업 원문을 바탕으로 분석하고, 반대 근거까지 검토하여 한국어 보고서로 정리합니다. **자연어 요청을 받는 총괄 1개 + 업무 스킬 7개**, 총 8개 스킬로 구성됩니다.
+**모두의 주식 · 원문 기반 AI 애널리스트**는 종목 하나의 질문을 출처가 연결된 보고서로 바꿉니다. DART 공시와 주석, 회사 IR, 원뉴스와 산업자료를 직접 읽고 수치와 반대 근거를 대조합니다. 확인된 사실·전망·해석을 구분하며, 결론을 바꿀 조건까지 MoAI 오피니언으로 설명합니다. **자연어 요청을 받는 총괄 1개 + 업무 스킬 7개**, 총 8개 스킬로 구성됩니다.
 
-현재 버전은 **0.1.0 개발 미리보기**입니다. 공개 저장소와 플랫폼별 패키지를 제공하며 로컬 계산·HTML 생성·패키지 구조를 검증했습니다. 실제 로그인 계정의 설치·업로드·자연어 분석은 아직 검증하지 않았습니다.
+현재 버전은 **0.1.2 개발 미리보기**입니다. 공개 저장소와 플랫폼별 패키지를 제공하며 로컬 계산·HTML 생성·패키지 구조를 검증했습니다. 2026-10-16 버전 0.1.1을 Chrome에서 ChatGPT 웹의 압축 업로드·설치 및 Claude 웹의 GitHub 마켓플레이스 동기화·설치를 확인했습니다. 두 환경 모두 스킬 8개가 인식됐습니다. 자연어 분석·HTML 생성 검증은 설치 검증과 구분합니다.
 
 ## 이렇게 요청해 보세요
 
@@ -64,15 +64,15 @@ MoAI 오피니언은 결론 요약 뒤에 상세 해석을 배치합니다. `관
 
 ## 설치와 사용 준비
 
-**[캡처와 함께 빠르게 설치하기 →](https://moai-stock.goos.chatgpt.site/quickstart.html)**
+**[캡처와 함께 빠르게 설치하기 →](https://moai-stock.goos.chatgpt.site/quickstart)**
 
 공통 스킬 원본은 하나로 유지하고 서비스별 설치 형식을 제공합니다. 공식 안내 확인일은 2026-10-16이며 요금제·관리자 정책·기능 제공 상태에 따라 메뉴가 다를 수 있습니다.
 
 | 서비스 | 설치 경로 |
 |---|---|
-| ChatGPT | 지원 계정의 Plugins·Skills 메뉴에서 추가합니다. GitHub 마켓플레이스 가져오기는 워크스페이스 관리자 경로를 확인합니다. |
+| ChatGPT 웹 | 기본: 워크스페이스 관리자의 Admin Console → Plugins → Add → Import marketplace. 관리자 메뉴가 없으면 플러그인 ZIP 업로드를 사용합니다. ZIP 실제 설치 확인. |
 | Codex | 아래 명령으로 GitHub 마켓플레이스와 플러그인을 추가합니다. 앱에서는 지원되는 플러그인 관리 화면을 이용합니다. |
-| Claude | 웹·Desktop의 Customize → Plugins에서 Git 마켓플레이스 또는 사용자 플러그인을 추가합니다. Claude Code 명령도 아래에 제공합니다. |
+| Claude | 사용자 지정 → 플러그인 → 추가 → 마켓플레이스 추가 → 저장소에서 추가 → GitHub URL → 동기화 → 플러그인 추가. 실제 웹 설치 확인. |
 | Gemini | 웹의 Skills 업로드에서 브라우저 통합 스킬 ZIP을 추가합니다. Gemini CLI는 저장소에서 확장을 설치합니다. |
 
 **Codex CLI**
@@ -95,7 +95,7 @@ codex plugin add moai-stock-plugin@moai-stock-marketplace
 gemini extensions install https://github.com/modu-ai/moai-stock-plugin
 ```
 
-브라우저 업로드용 파일과 Claude용 ZIP은 [킥스타트 다운로드](https://moai-stock.goos.chatgpt.site/quickstart.html#downloads)에서 받습니다. GitHub의 **Code → Download ZIP은 전체 개발 소스**이므로 브라우저 스킬 업로드용 파일과 구분합니다. 파일을 추가한 뒤 “모두의 주식으로 SK하이닉스를 공시와 뉴스에 근거해 분석해줘”라고 요청합니다.
+**GitHub 마켓플레이스 연결이 기본입니다.** 업데이트를 받을 수 있도록 기본 브랜치를 연결하고 동기화 상태와 설치 버전을 확인합니다. 등록이 지원되지 않는 계정의 ChatGPT·Claude용 ZIP은 [퀵스타트 다운로드](https://moai-stock.goos.chatgpt.site/quickstart#downloads)에서 받습니다. GitHub의 **Code → Download ZIP은 전체 개발 소스**이므로 브라우저 스킬 업로드용 파일과 구분합니다. 파일을 추가한 뒤 “모두의 주식으로 SK하이닉스를 공시와 뉴스에 근거해 분석해줘”라고 요청합니다.
 
 [플랫폼별 조건·공식 출처·검증 범위](docs/platforms.md)를 함께 확인하세요. Claude Chat의 하위 에이전트 실행, Gemini Skills와 Deep Research·Canvas의 동시 사용 등은 호스트 제약을 따릅니다. 웹 검색이나 Python 실행이 제공되지 않으면 해당 작업의 제한을 표시합니다.
 
@@ -173,7 +173,7 @@ DART·회사 IR·네이버 증권·원뉴스·산업자료에서 **원문을 직
 - 보고서 검증: CLI 입력 보존, 문서 유형별 구조, 출처 연결·상태, 로컬 근거 표시, 위험한 URL·HTML 이스케이프, 결측·음수 차트, 비유한 숫자 거부, 산문 문장 배열을 검사합니다. 실제 기업 내용의 진실성·최신성은 별도 조사·검토 책임입니다.
 - 계산 검증: 손익·현금 포함 비중·환율·원가 누락·중복·0 분모·오래된 가격·발행사 매핑·목표 비중·정수주·비용 후 현금을 확인합니다. 실제 계좌 연결이나 주문 테스트는 없습니다.
 - 실제 브라우저 화면, CDN 글꼴, 좁은 화면, PDF 페이지 나눔은 생성된 결과마다 별도 확인합니다. Python 테스트만 통과했다고 모든 화면이나 PDF를 검증했다고 주장하지 않습니다.
-- ChatGPT 클라우드·데스크톱 네이티브 설치, 마켓플레이스 발견, 자연어 라우팅·실제 하위 에이전트 실행은 아직 호스트별 검증이 필요합니다.
+- ChatGPT 웹 파일 업로드 설치와 Claude 웹 GitHub 마켓플레이스 설치는 실제 확인했습니다. 데스크톱·CLI·Gemini의 계정 설치와 각 호스트의 전체 분석 실행은 별도 검증 대상입니다.
 
 </details>
 
@@ -181,10 +181,14 @@ DART·회사 IR·네이버 증권·원뉴스·산업자료에서 **원문을 직
 
 개인 보유명세·원가·잔고·계좌번호·인증정보를 외부 웹 검색, 원격 도구, 공개 저장소, 예시, 로그에 전달하지 않습니다. 시세 조회에는 필요한 공개 종목 식별자만 사용합니다. 사용자 파일과 로컬 계산은 공개 URL을 꾸며내지 않고 작업 내 자료 별칭으로 연결합니다. 보유 정보가 포함된 결과는 사용자의 로컬 작업 공간에서 다룹니다.
 
-보고서 검토 → 플러그인 제작·실행 검토 → 마지막 배포 순서를 따릅니다. GitHub 주소를 이용한 마켓플레이스 배포가 목표이며 파일 다운로드를 기본 배포 경로로 바꾸지 않습니다. 공개 게시·설치 완료 여부는 실제 확인된 상태로 별도 보고합니다.
+보고서 검토 → 플러그인 제작·실행 검토 → 마지막 배포 순서를 따릅니다. GitHub 주소를 이용한 마켓플레이스 배포가 목표이며 ZIP 다운로드는 GitHub 등록이 불가능한 계정의 보조 경로로 제공합니다. 퀵스타트는 ChatGPT 웹과 Claude 웹 설치만 다룹니다. 공개 게시·설치 완료 여부는 실제 확인된 상태로 별도 보고합니다.
 
 ## 공개 샘플과 마켓플레이스 준비
 
 [SK하이닉스 공개 샘플 보고서](https://moai-stock.goos.chatgpt.site)는 로그인 없이 볼 수 있는 날짜가 명시된 보고서 예시입니다. 이 페이지는 플러그인 설치나 실시간 종목 분석을 실행하는 서비스가 아닙니다.
 
-저장소 루트의 `.agents/plugins/marketplace.json`은 현재 폴더의 플러그인을 가리키는 GitHub 마켓플레이스 카탈로그 초안입니다. 아직 학생 대상 공개·설치 검증을 완료하지 않았습니다. 공개 전 호스트별 설치 시험을 진행합니다. 공식 패키지 구조는 [OpenAI 플러그인 제작 문서](https://developers.openai.com/plugins/build/plugins), Git 배포 경로는 [배포 문서](https://developers.openai.com/plugins/deploy/desktop-only)를 참조합니다.
+저장소 루트의 `.agents/plugins/marketplace.json`은 현재 폴더의 플러그인을 가리키는 GitHub 마켓플레이스 카탈로그입니다. Claude 웹의 GitHub 동기화·설치를 확인했으며 ChatGPT 관리자 가져오기는 공식 문서에 따른 안내로 실제 계정 검증과 구분합니다. 공식 패키지 구조는 [OpenAI 플러그인 제작 문서](https://developers.openai.com/plugins/build/plugins), Git 배포 경로는 [배포 문서](https://developers.openai.com/plugins/deploy/desktop-only)를 참조합니다.
+
+## 공식 디렉터리 제출
+
+Claude와 OpenAI 모두 공식 제출 경로를 제공합니다. 제출·심사·공개는 GitHub 마켓플레이스 개인 설치와 별개입니다. 현재 공식 디렉터리 등록 완료를 주장하지 않습니다. [제출 경로와 확인 범위](docs/submission-options.md)를 참고하세요.

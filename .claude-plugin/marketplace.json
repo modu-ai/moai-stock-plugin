@@ -1,12 +1,15 @@
 {
   "name": "modu-ai-stock",
-  "description": "모두의 주식 AI 애널리스트 플러그인",
-  "owner": {"name": "모두의 AI"},
+  "description": "모두의 주식 · 원문 기반 AI 애널리스트",
+  "owner": {
+    "name": "모두의 AI"
+  },
   "plugins": [
     {
       "name": "moai-stock-plugin",
       "source": "./",
-      "description": "모두의 주식 · 원문 기반 AI 애널리스트"
+      "description": "공시·뉴스·산업 원문을 읽고 수치와 반대 근거를 대조하여 출처가 연결된 HTML 보고서와 MoAI 오피니언을 작성합니다.",
+      "displayName": "모두의 주식 · 원문 기반 AI 애널리스트"
     }
   ]
 }

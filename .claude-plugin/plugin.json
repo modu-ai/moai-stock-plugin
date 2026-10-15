@@ -1,7 +1,7 @@
 {
   "name": "moai-stock-plugin",
-  "version": "0.1.1",
-  "description": "공시·뉴스·산업 근거를 분석하고 검증하는 모두의 주식 AI 애널리스트. 종목 분석·비교·실적·사건·관심종목·팩트체크·포트폴리오 점검을 제공합니다.",
+  "version": "0.1.2",
+  "description": "모두의 주식 · 원문 기반 AI 애널리스트. DART·회사 IR·뉴스·산업자료를 직접 조사하고 수치와 반대 근거를 검증합니다. 종목 분석·기업 비교·실적 해설·사건 영향·관심종목 점검·팩트체크·보유자산 상담을 출처가 연결된 HTML 보고서와 MoAI 오피니언으로 정리합니다.",
   "author": {
     "name": "모두의 AI"
   },
@@ -12,5 +12,8 @@
     "financial-analysis",
     "주식",
     "기업분석"
-  ]
+  ],
+  "homepage": "https://moai-stock.goos.chatgpt.site/quickstart",
+  "displayName": "모두의 주식 · 원문 기반 AI 애널리스트",
+  "icon": "./assets/modu-stock-icon.png"
 }

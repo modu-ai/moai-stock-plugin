@@ -4,9 +4,9 @@
 
 | 대상 | 준비된 형식 | 현재 확인 범위 |
 |---|---|---|
-| 기존 ChatGPT/Codex 경로 | 루트 `plugin.json` + 공통 `skills/` | 기존 패키지를 유지. 이번 어댑터 검증으로 계정 설치를 증명하지 않음 |
+| 기존 ChatGPT/Codex 경로 | 루트 `plugin.json` + 공통 `skills/` | ChatGPT 웹 ZIP 업로드·설치 및 스킬 8개 확인(2026-10-16). Codex 실제 설치는 별도 |
 | Claude Code | `.claude-plugin/plugin.json`, `.claude-plugin/marketplace.json`, `skills/` | 로컬 공식 validator 실행. 실제 설치·자연어 분석은 별도 |
-| Claude 웹·Desktop | 사용자 플러그인 파일 또는 브라우저용 통합 스킬 ZIP | 문서상 설치 경로와 패키지 구조 확인. 계정 업로드·실행 미검증 |
+| Claude 웹·Desktop | 사용자 플러그인 파일 또는 브라우저용 통합 스킬 ZIP | Claude 웹 GitHub 마켓플레이스 동기화·설치·스킬 8개 확인(2026-10-16). Desktop·분석 실행은 별도 |
 | Gemini CLI | `gemini-extension.json`, `GEMINI.md`, 공통 `skills/` | 로컬 공식 validator·참조 및 압축해제 스크립트 실행 검증. 확장 설치·모델 실행 미검증 |
 | Gemini 웹 Skills | 단일 `moai-stock-browser` 폴더의 `SKILL.md`와 모든 참조 파일 | 공식 업로드 형식에 맞춘 묶음. 계정별 제공 여부·업로드·모델 실행 미검증 |
 
@@ -67,8 +67,16 @@ python3 scripts/build_distributions.py
 python3 tests/test_distributions.py
 ```
 
-`dist/`에 버전이 포함된 Claude·Gemini CLI·브라우저 스킬 ZIP과 `build-validation.json`을 만듭니다. 각 ZIP은 하나의 최상위 폴더를 포함합니다. `dist/.gitignore`가 생성 파일의 기본 커밋을 막으며 릴리스 자산 업로드는 별도의 배포 단계입니다. 빌드는 네트워크 호출이나 계정 설정 변경을 수행하지 않습니다.
+`dist/`에 버전이 포함된 OpenAI·Claude·Gemini CLI·브라우저 스킬 ZIP과 `build-validation.json`을 만듭니다. 각 ZIP은 하나의 최상위 폴더를 포함합니다. `dist/.gitignore`가 생성 파일의 기본 커밋을 막으며 릴리스 자산 업로드는 별도의 배포 단계입니다. 빌드는 네트워크 호출이나 계정 설정 변경을 수행하지 않습니다.
 
 명시적 런타임 허용 목록으로 원본을 선택하므로 `.git`, 캐시, 환경 파일, 개인 계좌 자료, 예시 출력은 포함하지 않습니다. 허용 파일 안의 개인 홈 경로·대표 비밀키 형식도 검사하고 파일 심볼릭 링크 및 묶음 밖으로 향하는 참조는 거부합니다. 이는 알려진 누출 방지 검사이며 모든 가능한 비밀을 찾아내는 보안 인증은 아닙니다. `DISTRIBUTION.json`에는 원본 상대경로와 파일 해시가 들어갑니다.
 
-로컬 테스트는 세 패키지의 반복 생성 동일성, 내부 참조 완결성, 금지 파일 제외·경로 차단, 압축해제한 계산기의 합성 입력 계산, 렌더러의 합성 브리핑 HTML 생성을 확인합니다. 공식 서비스의 로그인·업로드·스킬 선택·원문 검색·모델 분석·화면 표시는 별도 수용 테스트로 남습니다. 설치 지원 형식을 준비한 것과 모든 플랫폼에서 실제 사용 검증을 마친 것을 구분합니다.
+로컬 테스트는 네 패키지의 반복 생성 동일성, 내부 참조 완결성, 금지 파일 제외·경로 차단, 압축해제한 계산기의 합성 입력 계산, 렌더러의 합성 브리핑 HTML 생성을 확인합니다. 공식 서비스의 로그인·업로드·스킬 선택·원문 검색·모델 분석·화면 표시는 별도 수용 테스트로 남습니다. 설치 지원 형식을 준비한 것과 모든 플랫폼에서 실제 사용 검증을 마친 것을 구분합니다.
+
+## 실제 웹 설치 확인 — 2026-10-16
+
+Chrome에서 ChatGPT 웹은 `moai-stock-openai-0.1.1.zip`을 업로드하여 스킬 8개가 인식된 후 설치하고 채팅 실행 버튼을 확인했습니다. Claude 웹은 GitHub 저장소를 마켓플레이스로 동기화하여 버전 0.1.1, Skills 8개, 활성화 스위치를 확인했습니다. [실제 설치 화면](https://moai-stock.goos.chatgpt.site/quickstart#installation-captures)을 제공합니다. 이 설치 결과만으로 종목 분석의 품질이나 모든 계정 호환성을 인증하지 않습니다.
+
+## 배포 기본값과 퀵스타트 범위
+
+최신 결정은 GitHub 마켓플레이스 등록을 기본으로 하고 ZIP을 보조 제공하는 것입니다. 퀵스타트에서는 ChatGPT 웹과 Claude 웹만 다룹니다. ChatGPT GitHub 가져오기는 워크스페이스 관리자용이며 일반 개인 계정에서는 ZIP 경로를 사용합니다. 현재 배포 파일 0.1.2는 소개·아이콘을 보강했으며, 위 설치 증거의 0.1.1과 구분합니다.

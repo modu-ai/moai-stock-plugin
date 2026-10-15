@@ -134,7 +134,7 @@ def collect(root, platform):
     files = {name: read_allowed(root, name) for name in RUNTIME}
     mapping = {name: name for name in RUNTIME}
     if platform == 'openai':
-        for name in ('plugin.json', 'assets/modu-stock-wordmark.png'):
+        for name in ('plugin.json', 'assets/modu-stock-wordmark.png', 'assets/modu-stock-icon.png'):
             files[name] = read_allowed(root, name)
         for skill in SKILLS:
             name = 'skills/' + skill + '/agents/openai.yaml'
@@ -145,9 +145,10 @@ def collect(root, platform):
         require(isinstance(prompts, str) or isinstance(prompts, list) and len(prompts) <= 3, 'OpenAI defaultPrompt limit')
         prefix = 'moai-stock-plugin'
     elif platform == 'claude':
-        for name in ('.claude-plugin/plugin.json', '.claude-plugin/marketplace.json'):
+        for name in ('.claude-plugin/plugin.json', '.claude-plugin/marketplace.json', 'assets/modu-stock-icon.png'):
             files[name] = read_allowed(root, name)
-            assert_no_services(json.loads(files[name]))
+            if name.endswith('.json'):
+                assert_no_services(json.loads(files[name]))
         manifest = json.loads(files['.claude-plugin/plugin.json'])
         marketplace = json.loads(files['.claude-plugin/marketplace.json'])
         require(manifest['name'] == identity['name'] and manifest['version'] == version, 'Claude identity/version mismatch')

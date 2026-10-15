@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location('distributions', ROOT / 'scripts/build_distributions.py')
 builder = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(builder)
-ADAPTER_FILES = ('plugin.json', '.claude-plugin/plugin.json', '.claude-plugin/marketplace.json', 'gemini-extension.json', 'GEMINI.md', 'assets/modu-stock-wordmark.png') + tuple('skills/' + skill + '/agents/openai.yaml' for skill in builder.SKILLS)
+ADAPTER_FILES = ('plugin.json', '.claude-plugin/plugin.json', '.claude-plugin/marketplace.json', 'gemini-extension.json', 'GEMINI.md', 'assets/modu-stock-wordmark.png', 'assets/modu-stock-icon.png') + tuple('skills/' + skill + '/agents/openai.yaml' for skill in builder.SKILLS)
 
 
 def copy_fixture(destination):

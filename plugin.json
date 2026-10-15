@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "moai-stock-plugin",
-  "version": "0.1.1",
-  "description": "공시·뉴스·산업 원문을 조사하고 반대 근거까지 검증하는 한국어 AI 애널리스트. 종목 심층 분석, 기업 비교, 실적 해설, 사건 영향, 관심종목 재점검, 주장 팩트체크, 보유자산 상담·리밸런싱을 제공합니다.",
+  "version": "0.1.2",
+  "description": "모두의 주식 · 원문 기반 AI 애널리스트. 공시·뉴스·산업자료를 직접 읽고 수치와 반대 근거를 검증하여, 출처와 판단 조건이 담긴 한국어 HTML 보고서를 작성합니다.",
   "author": {
     "name": "모두의 AI"
   },
@@ -17,9 +17,9 @@
   "extensions": {
     "com.openai": {
       "interface": {
-        "displayName": "모두의 주식 · MoAI 애널리스트",
-        "shortDescription": "공시·뉴스로 분석하는 AI 애널리스트",
-        "longDescription": "공식 재무자료와 원뉴스를 직접 조사하여 근거와 반론을 함께 제시합니다. MoAI 오피니언은 관심종목 편입·관망·편입 보류의 조사 우선순위이며 거래 지시가 아닙니다. 웹 검색·원문 열람 및 파일 생성 기능은 실행 환경에서 제공되어야 합니다.",
+        "displayName": "모두의 주식 · 원문 기반 AI 애널리스트",
+        "shortDescription": "공시·뉴스의 근거를 읽는 AI 애널리스트",
+        "longDescription": "종목 하나를 물으면, 원자료에서 출발해 판단의 조건까지 설명합니다.\n\nDART 공시와 주석, 회사 IR, 원뉴스와 산업·경쟁사 자료를 직접 조사하고 수치의 기간·단위·정정 여부와 가장 강한 반대 근거를 대조합니다. 확인된 사실과 전망, 해석을 구분하며 접근하지 못한 자료는 이유와 영향을 밝힙니다.\n\n종목 심층 분석 · 동종기업 비교 · 실적 해설 · 공시·뉴스 영향 분석 · 관심종목 재점검 · 투자 주장 팩트체크 · 보유자산 상담을 제공합니다. 자연어 요청에 따라 총괄 스킬이 필요한 업무를 연결합니다.\n\n모두의 주식 로고와 전자잉크 스타일의 HTML 보고서, 출처 장부, 계산·검토 기록을 함께 작성합니다. 마지막 MoAI 오피니언은 관심종목 편입·관망·편입 보류의 근거와 판단이 바뀔 조건을 제시합니다.\n\n웹 검색·원문 열람·파일 생성 기능은 사용하는 환경에서 제공되어야 합니다. 현재 버전은 MCP나 금융 API 연결 없이 동작하며 실제 매매를 실행하지 않습니다.",
         "developerName": "모두의 AI",
         "category": "Data",
         "capabilities": [
@@ -28,7 +28,8 @@
         ],
         "defaultPrompt": "SK하이닉스를 심층 분석해줘\n삼성전자와 SK하이닉스의 사업과 실적을 비교해줘\n지난 보고서 이후 달라진 근거를 점검해줘\n가상 보유종목의 평단과 수량으로 손익과 비중을 점검해줘",
         "brandColor": "#902531",
-        "logo": "./assets/modu-stock-wordmark.png"
+        "logo": "./assets/modu-stock-icon.png",
+        "composerIcon": "./assets/modu-stock-icon.png"
       }
     }
   }
