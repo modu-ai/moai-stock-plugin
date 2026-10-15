@@ -1,0 +1,45 @@
+{
+  "as_of": "2026-10-16T09:00:00+09:00 · 합성 예시",
+  "document_type": "portfolio",
+  "document": {
+    "title": "가상 데이터 · 포트폴리오 점검",
+    "subtitle": "보유 현황과 손익, 집중도를 한 흐름으로 읽습니다",
+    "context_label": "합성 종목 3개와 가상 현금 · 실제 계좌 아님"
+  },
+  "sources": [
+    {
+      "id": "synthetic-input",
+      "title": "합성 보유 자산 입력",
+      "publisher": "플러그인 합성 예시 작성자",
+      "source_type": "user_input",
+      "url": null,
+      "artifact_ref": "synthetic-portfolio-input",
+      "published_at": "2026-10-16 · 합성 예시 고정 기준일",
+      "period": "가상 입력 스냅샷",
+      "accessed_at": "재생성 시 로컬 예시 파일 읽기",
+      "status": "read",
+      "verification": "direct_read",
+      "read_scope": "가상 보유 종목·수량·평균 매입가·가정 가격·현금 전체",
+      "findings": "모든 종목·가격은 작성된 가정입니다. 실제 계좌나 현재 시세를 뜻하지 않습니다."
+    },
+    {
+      "id": "synthetic-calculation",
+      "title": "합성 입력을 이용한 실제 계산 결과",
+      "publisher": "플러그인 합성 예시 작성자",
+      "source_type": "local_calculation",
+      "url": null,
+      "artifact_ref": "synthetic-portfolio-calculation",
+      "published_at": "2026-10-16 · 합성 예시 고정 기준일",
+      "period": "가상 입력 스냅샷",
+      "accessed_at": "재생성 시 로컬 예시 파일 읽기",
+      "status": "read",
+      "verification": "direct_read",
+      "read_scope": "portfolio_calc의 총액·개별 손익·비중·집중도·범위 경고",
+      "findings": "계산기를 실행하고 입력에서 별도로 합산한 원가·평가액·손익과 대조했습니다. 입력 가격의 현실성이나 투자 판단을 검증하지 않았습니다.",
+      "input_source_ids": [
+        "synthetic-input"
+      ],
+      "input_sha256": "4c6f8f413d818612a3852d5b03d25e598639aa78761a2c04022b577ad1c5fea8"
+    }
+  ]
+}

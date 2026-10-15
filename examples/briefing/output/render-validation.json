@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "structural_validation": "valid",
+  "research_verified_by_renderer": false,
+  "note": "Only structure, reference integrity, and numeric representability were checked; source truth, arithmetic, completeness, and investment judgment require independent review.",
+  "document_type": "briefing",
+  "declared_report_status": "draft",
+  "claims": [
+    {
+      "path": "summary[0]",
+      "source_ids": [
+        "synthetic-notes"
+      ],
+      "status": "inference"
+    },
+    {
+      "path": "sections[0].blocks[1]",
+      "source_ids": [
+        "synthetic-notes"
+      ],
+      "status": "inference"
+    },
+    {
+      "path": "sections[0].blocks[3]",
+      "source_ids": [
+        "synthetic-notes"
+      ],
+      "status": "inference"
+    },
+    {
+      "path": "sections[1].blocks[0]",
+      "source_ids": [
+        "synthetic-notes"
+      ],
+      "status": "inference"
+    },
+    {
+      "path": "sections[1].blocks[1]",
+      "source_ids": [
+        "synthetic-notes"
+      ],
+      "status": "inference"
+    },
+    {
+      "path": "opinion.lead",
+      "source_ids": [
+        "synthetic-notes"
+      ],
+      "status": "inference"
+    },
+    {
+      "path": "opinion.grounds",
+      "source_ids": [
+        "synthetic-notes"
+      ],
+      "status": "inference"
+    },
+    {
+      "path": "opinion.conditions",
+      "source_ids": [
+        "synthetic-notes"
+      ],
+      "status": "inference"
+    }
+  ],
+  "charts": 0,
+  "opinion_sentence_counts": [],
+  "input_sha256": "f0a7244f74f1aae9c01f8562dad4100aba9ab8dd2391a21f4163a25033db8d86"
+}

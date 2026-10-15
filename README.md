@@ -15,12 +15,12 @@
 <p align="center">
   <a href="https://moai-stock.goos.chatgpt.site"><strong>SK하이닉스 보고서 미리 보기 →</strong></a>
   &nbsp;·&nbsp;
-  <a href="ROADMAP.md">다음 버전 로드맵</a>
+  <a href="https://moai-stock.goos.chatgpt.site/quickstart.html">설치 킥스타트</a> &nbsp;·&nbsp; <a href="ROADMAP.md">다음 버전 로드맵</a>
 </p>
 
 공시·뉴스·산업 원문을 바탕으로 분석하고, 반대 근거까지 검토하여 한국어 보고서로 정리합니다. **자연어 요청을 받는 총괄 1개 + 업무 스킬 7개**, 총 8개 스킬로 구성됩니다.
 
-현재 버전은 **로컬 제작·검증 단계**입니다. ChatGPT 브라우저 클라우드와 데스크톱 앱에서 네이티브 플러그인 설치·스킬 발견·실행이 완료됐다고 주장하지 않습니다. GitHub의 `modu-ai/moai-stock-plugin` 공개 개발 저장소를 생성하고 이 플러그인 폴더와 원격 연결했습니다. 마켓플레이스 배포·설치는 별도 최종 단계입니다.
+현재 버전은 **0.1.0 개발 미리보기**입니다. 공개 저장소와 플랫폼별 패키지를 제공하며 로컬 계산·HTML 생성·패키지 구조를 검증했습니다. 실제 로그인 계정의 설치·업로드·자연어 분석은 아직 검증하지 않았습니다.
 
 ## 이렇게 요청해 보세요
 
@@ -64,7 +64,40 @@ MoAI 오피니언은 결론 요약 뒤에 상세 해석을 배치합니다. `관
 
 ## 설치와 사용 준비
 
-**ChatGPT 브라우저 클라우드·데스크톱의 네이티브 설치와 자연어 실행은 아직 검증하지 않았습니다.** 현재는 아래 로컬 실행으로 생성기와 계산기를 확인할 수 있습니다. GitHub 마켓플레이스 설치 절차는 실제 호스트 시험을 마친 뒤 안내합니다.
+**[캡처와 함께 빠르게 설치하기 →](https://moai-stock.goos.chatgpt.site/quickstart.html)**
+
+공통 스킬 원본은 하나로 유지하고 서비스별 설치 형식을 제공합니다. 공식 안내 확인일은 2026-10-16이며 요금제·관리자 정책·기능 제공 상태에 따라 메뉴가 다를 수 있습니다.
+
+| 서비스 | 설치 경로 |
+|---|---|
+| ChatGPT | 지원 계정의 Plugins·Skills 메뉴에서 추가합니다. GitHub 마켓플레이스 가져오기는 워크스페이스 관리자 경로를 확인합니다. |
+| Codex | 아래 명령으로 GitHub 마켓플레이스와 플러그인을 추가합니다. 앱에서는 지원되는 플러그인 관리 화면을 이용합니다. |
+| Claude | 웹·Desktop의 Customize → Plugins에서 Git 마켓플레이스 또는 사용자 플러그인을 추가합니다. Claude Code 명령도 아래에 제공합니다. |
+| Gemini | 웹의 Skills 업로드에서 브라우저 통합 스킬 ZIP을 추가합니다. Gemini CLI는 저장소에서 확장을 설치합니다. |
+
+**Codex CLI**
+
+```sh
+codex plugin marketplace add modu-ai/moai-stock-plugin
+codex plugin add moai-stock-plugin@moai-stock-marketplace
+```
+
+**Claude Code**
+
+```text
+/plugin marketplace add modu-ai/moai-stock-plugin
+/plugin install moai-stock-plugin@modu-ai-stock
+```
+
+**Gemini CLI**
+
+```sh
+gemini extensions install https://github.com/modu-ai/moai-stock-plugin
+```
+
+브라우저 업로드용 파일과 Claude용 ZIP은 [킥스타트 다운로드](https://moai-stock.goos.chatgpt.site/quickstart.html#downloads)에서 받습니다. GitHub의 **Code → Download ZIP은 전체 개발 소스**이므로 브라우저 스킬 업로드용 파일과 구분합니다. 파일을 추가한 뒤 “모두의 주식으로 SK하이닉스를 공시와 뉴스에 근거해 분석해줘”라고 요청합니다.
+
+[플랫폼별 조건·공식 출처·검증 범위](docs/platforms.md)를 함께 확인하세요. Claude Chat의 하위 에이전트 실행, Gemini Skills와 Deep Research·Canvas의 동시 사용 등은 호스트 제약을 따릅니다. 웹 검색이나 Python 실행이 제공되지 않으면 해당 작업의 제한을 표시합니다.
 
 <details>
 <summary><strong>로컬 실행과 입력 형식 보기</strong></summary>

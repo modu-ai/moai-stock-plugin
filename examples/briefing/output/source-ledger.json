@@ -1,0 +1,26 @@
+{
+  "as_of": "2026-10-16 · 가상 기준",
+  "document_type": "briefing",
+  "document": {
+    "title": "가상 데이터 · 리서치 브리핑",
+    "subtitle": "계획과 결과를 구분해 읽는 짧은 보고서",
+    "context_label": "합성 메모 2건 · 실제 뉴스 아님"
+  },
+  "sources": [
+    {
+      "id": "synthetic-notes",
+      "title": "가상 리서치 메모 입력",
+      "publisher": "플러그인 합성 예시 작성자",
+      "source_type": "user_input",
+      "url": null,
+      "artifact_ref": "synthetic-briefing-notes",
+      "published_at": "2026-10-16 · 합성 예시 기준",
+      "period": "가상 시나리오",
+      "accessed_at": "재생성 시 로컬 메모 확인",
+      "read_scope": "synthetic-notes의 시나리오 A·B와 미확인 범위",
+      "findings": "실제 기사나 공시가 아닌 가정 메모입니다. 실제 기업 사실을 수집했다고 주장하지 않습니다.",
+      "status": "read",
+      "verification": "direct_read"
+    }
+  ]
+}

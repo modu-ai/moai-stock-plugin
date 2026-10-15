@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "structural_validation": "valid",
+  "research_verified_by_renderer": false,
+  "note": "Only structure, reference integrity, and numeric representability were checked; source truth, arithmetic, completeness, and investment judgment require independent review.",
+  "document_type": "portfolio",
+  "declared_report_status": "limited",
+  "claims": [
+    {
+      "path": "kpis[0]",
+      "source_ids": [
+        "synthetic-calculation"
+      ],
+      "status": "verified"
+    },
+    {
+      "path": "kpis[1]",
+      "source_ids": [
+        "synthetic-calculation"
+      ],
+      "status": "verified"
+    },
+    {
+      "path": "kpis[2]",
+      "source_ids": [
+        "synthetic-calculation"
+      ],
+      "status": "verified"
+    },
+    {
+      "path": "kpis[3]",
+      "source_ids": [
+        "synthetic-calculation"
+      ],
+      "status": "verified"
+    },
+    {
+      "path": "summary[0]",
+      "source_ids": [
+        "synthetic-input"
+      ],
+      "status": "verified"
+    },
+    {
+      "path": "summary[1]",
+      "source_ids": [
+        "synthetic-calculation"
+      ],
+      "status": "verified"
+    },
+    {
+      "path": "sections[0].blocks[0]",
+      "source_ids": [
+        "synthetic-input",
+        "synthetic-calculation"
+      ],
+      "status": "verified"
+    },
+    {
+      "path": "sections[1].blocks[0]",
+      "source_ids": [
+        "synthetic-calculation"
+      ],
+      "status": "verified"
+    },
+    {
+      "path": "sections[1].blocks[1]",
+      "source_ids": [
+        "synthetic-calculation"
+      ],
+      "status": "verified"
+    },
+    {
+      "path": "sections[2].blocks[0]",
+      "source_ids": [
+        "synthetic-calculation"
+      ],
+      "status": "verified"
+    },
+    {
+      "path": "sections[2].blocks[1]",
+      "source_ids": [
+        "synthetic-calculation"
+      ],
+      "status": "verified"
+    },
+    {
+      "path": "sections[2].blocks[2]",
+      "source_ids": [
+        "synthetic-input",
+        "synthetic-calculation"
+      ],
+      "status": "inference"
+    },
+    {
+      "path": "sections[3].blocks[1]",
+      "source_ids": [
+        "synthetic-input",
+        "synthetic-calculation"
+      ],
+      "status": "inference"
+    }
+  ],
+  "charts": 2,
+  "opinion_sentence_counts": [],
+  "input_sha256": "4242b1835a72c93f2c2ac8d365e061cc600a75b4134b63afbdc3374b35c313de"
+}

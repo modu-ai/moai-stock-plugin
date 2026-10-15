@@ -1,0 +1,12 @@
+{
+  "name": "modu-ai-stock",
+  "description": "모두의 주식 AI 애널리스트 플러그인",
+  "owner": {"name": "모두의 AI"},
+  "plugins": [
+    {
+      "name": "moai-stock-plugin",
+      "source": "./",
+      "description": "모두의 주식 · 원문 기반 AI 애널리스트"
+    }
+  ]
+}
