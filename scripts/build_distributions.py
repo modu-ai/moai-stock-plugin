@@ -133,7 +133,18 @@ def collect(root, platform):
     require(present == set(SKILLS), 'Canonical skill inventory differs from eight-skill distribution contract')
     files = {name: read_allowed(root, name) for name in RUNTIME}
     mapping = {name: name for name in RUNTIME}
-    if platform == 'claude':
+    if platform == 'openai':
+        for name in ('plugin.json', 'assets/modu-stock-wordmark.png'):
+            files[name] = read_allowed(root, name)
+        for skill in SKILLS:
+            name = 'skills/' + skill + '/agents/openai.yaml'
+            files[name] = read_allowed(root, name)
+        interface = identity['extensions']['com.openai']['interface']
+        require(len(interface['shortDescription']) <= 30, 'OpenAI subtitle exceeds 30 characters')
+        prompts = interface['defaultPrompt']
+        require(isinstance(prompts, str) or isinstance(prompts, list) and len(prompts) <= 3, 'OpenAI defaultPrompt limit')
+        prefix = 'moai-stock-plugin'
+    elif platform == 'claude':
         for name in ('.claude-plugin/plugin.json', '.claude-plugin/marketplace.json'):
             files[name] = read_allowed(root, name)
             assert_no_services(json.loads(files[name]))
@@ -181,7 +192,7 @@ def collect(root, platform):
 def build(root, out):
     builds = []
     # Validate every platform before writing archives.
-    prepared = [(platform, *collect(root, platform)) for platform in ('claude', 'gemini-cli', 'browser-skill')]
+    prepared = [(platform, *collect(root, platform)) for platform in ('openai', 'claude', 'gemini-cli', 'browser-skill')]
     out.mkdir(parents=True, exist_ok=True)
     for platform, version, prefix, files in prepared:
         path = out / ('moai-stock-' + platform + '-' + version + '.zip')

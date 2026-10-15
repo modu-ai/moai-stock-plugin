@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location('distributions', ROOT / 'scripts/build_distributions.py')
 builder = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(builder)
-ADAPTER_FILES = ('plugin.json', '.claude-plugin/plugin.json', '.claude-plugin/marketplace.json', 'gemini-extension.json', 'GEMINI.md')
+ADAPTER_FILES = ('plugin.json', '.claude-plugin/plugin.json', '.claude-plugin/marketplace.json', 'gemini-extension.json', 'GEMINI.md', 'assets/modu-stock-wordmark.png') + tuple('skills/' + skill + '/agents/openai.yaml' for skill in builder.SKILLS)
 
 
 def copy_fixture(destination):
@@ -24,13 +24,13 @@ def copy_fixture(destination):
 
 
 class DistributionTests(unittest.TestCase):
-    def test_three_archives_reproducible_and_reference_complete(self):
+    def test_four_archives_reproducible_and_reference_complete(self):
         with tempfile.TemporaryDirectory() as tmp:
             first, second = Path(tmp) / 'first', Path(tmp) / 'second'
             a, b = builder.build(ROOT, first), builder.build(ROOT, second)
             self.assertEqual(a, b)
             self.assertFalse(a['host_installation_tested'])
-            self.assertEqual(len(a['archives']), 3)
+            self.assertEqual(len(a['archives']), 4)
             for item in a['archives']:
                 with zipfile.ZipFile(first / item['archive']) as archive:
                     names = archive.namelist()
