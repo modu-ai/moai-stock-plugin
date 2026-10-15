@@ -1,0 +1,6 @@
+interface:
+  display_name: "투자 주장 팩트체크"
+  short_description: "주식·기업 분석의 특정 주장이나 보고서를 원자료·계산·반대 근거와 대조하여 사실·전망·추론 및 오류·확인 한"
+  default_prompt: "$claim-check 스킬로 요청한 분석을 근거와 반대 논거까지 확인해 작성해 주세요."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,17 @@
+{
+  "status": "local_generation_checks_passed",
+  "scope": "Synthetic input arithmetic, renderer structural checks, byte-preserved inputs; no browser/PDF or investment assessment.",
+  "portfolio": {
+    "example": "portfolio",
+    "arithmetic_checks": 4,
+    "real_world_inputs": false,
+    "computed_market_value": "35100.000000",
+    "computed_unrealized_pnl": "800.000000"
+  },
+  "briefing": {
+    "example": "briefing",
+    "real_world_inputs": false
+  },
+  "html_link_checks": "2 documents: internal anchors and local downloads exist",
+  "network_fetches": 0
+}

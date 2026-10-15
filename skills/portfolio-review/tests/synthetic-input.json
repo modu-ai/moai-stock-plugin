@@ -1,0 +1,29 @@
+{
+  "base_currency": "KRW",
+  "as_of": "2026-10-16T09:00:00+09:00",
+  "coverage": "partial",
+  "max_price_age_days": 3,
+  "holdings": [
+    {
+      "id": "synthetic-a",
+      "ticker": "SYNTH-A",
+      "market": "FICTIONAL",
+      "quantity": "10",
+      "average_cost": "100",
+      "cost_currency": "KRW",
+      "current_price": "120",
+      "price_currency": "KRW",
+      "price_as_of": "2026-10-15T09:00:00+09:00",
+      "price_source": "synthetic test fixture",
+      "issuer_id": "fictional-issuer",
+      "sector": "fictional-sector"
+    }
+  ],
+  "cash": [
+    {
+      "id": "cash-krw",
+      "currency": "KRW",
+      "amount": "300"
+    }
+  ]
+}

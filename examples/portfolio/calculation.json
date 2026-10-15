@@ -1,0 +1,156 @@
+{
+  "schema_version": "1.0",
+  "base_currency": "KRW",
+  "as_of": "2026-10-16T09:00:00+09:00",
+  "coverage": {
+    "user_declared": "partial",
+    "independently_verified_complete_wealth": false,
+    "valuation_complete_for_submitted_assets": true,
+    "cost_basis_complete": true,
+    "missing_value_ids": []
+  },
+  "totals": {
+    "market_value_base": "35100.000000",
+    "known_market_value_subtotal_base": "35100.000000",
+    "cost_basis_base": "25300.000000",
+    "known_cost_basis_subtotal_base": "25300.000000",
+    "unrealized_pnl_base": "800.000000",
+    "known_paired_unrealized_pnl_subtotal_base": "800.000000",
+    "unrealized_pnl_percent": "3.162055"
+  },
+  "holdings": [
+    {
+      "id": "synthetic-a",
+      "ticker": "SYNTH-A",
+      "market": "FICTIONAL",
+      "quantity": "12.000000",
+      "average_cost": "800.000000",
+      "cost_currency": "KRW",
+      "current_price": "1000.000000",
+      "price_currency": "KRW",
+      "price_as_of": "2026-10-15T09:00:00+09:00",
+      "price_source": "합성 예시 입력; 실제 시세 아님",
+      "price_age_days": "1.000000",
+      "price_freshness": "within_user_threshold",
+      "unit_price_base": "1000.000000",
+      "cost_basis_base": "9600.000000",
+      "market_value_base": "12000.000000",
+      "unrealized_pnl_base": "2400.000000",
+      "unrealized_pnl_percent": "25.000000",
+      "issuer_id": "fictional-a",
+      "sector": "가상 업종 X",
+      "allocation_percent": "34.188034",
+      "known_subset_allocation_percent": "34.188034"
+    },
+    {
+      "id": "synthetic-b",
+      "ticker": "SYNTH-B",
+      "market": "FICTIONAL",
+      "quantity": "8.000000",
+      "average_cost": "1400.000000",
+      "cost_currency": "KRW",
+      "current_price": "1200.000000",
+      "price_currency": "KRW",
+      "price_as_of": "2026-10-15T09:00:00+09:00",
+      "price_source": "합성 예시 입력; 실제 시세 아님",
+      "price_age_days": "1.000000",
+      "price_freshness": "within_user_threshold",
+      "unit_price_base": "1200.000000",
+      "cost_basis_base": "11200.000000",
+      "market_value_base": "9600.000000",
+      "unrealized_pnl_base": "-1600.000000",
+      "unrealized_pnl_percent": "-14.285714",
+      "issuer_id": "fictional-b",
+      "sector": "가상 업종 X",
+      "allocation_percent": "27.350427",
+      "known_subset_allocation_percent": "27.350427"
+    },
+    {
+      "id": "synthetic-c",
+      "ticker": "SYNTH-C",
+      "market": "FICTIONAL",
+      "quantity": "5.000000",
+      "average_cost": "900.000000",
+      "cost_currency": "KRW",
+      "current_price": "900.000000",
+      "price_currency": "KRW",
+      "price_as_of": "2026-10-15T09:00:00+09:00",
+      "price_source": "합성 예시 입력; 실제 시세 아님",
+      "price_age_days": "1.000000",
+      "price_freshness": "within_user_threshold",
+      "unit_price_base": "900.000000",
+      "cost_basis_base": "4500.000000",
+      "market_value_base": "4500.000000",
+      "unrealized_pnl_base": "0.000000",
+      "unrealized_pnl_percent": "0.000000",
+      "issuer_id": "fictional-c",
+      "sector": "가상 업종 Y",
+      "allocation_percent": "12.820513",
+      "known_subset_allocation_percent": "12.820513"
+    }
+  ],
+  "cash": [
+    {
+      "id": "synthetic-cash",
+      "currency": "KRW",
+      "amount": "9000.000000",
+      "market_value_base": "9000.000000",
+      "allocation_percent": "25.641026",
+      "known_subset_allocation_percent": "25.641026"
+    }
+  ],
+  "fx_rates": [],
+  "sector_concentration": {
+    "basis": "submitted_scope_including_cash",
+    "groups": [
+      {
+        "name": "가상 업종 X",
+        "market_value_base": "21600.000000",
+        "weight_percent": "61.538462"
+      },
+      {
+        "name": "가상 업종 Y",
+        "market_value_base": "4500.000000",
+        "weight_percent": "12.820513"
+      }
+    ],
+    "unmapped_value_base": "0.000000",
+    "mapping_complete": true
+  },
+  "issuer_concentration": {
+    "basis": "submitted_scope_including_cash",
+    "groups": [
+      {
+        "name": "fictional-a",
+        "market_value_base": "12000.000000",
+        "weight_percent": "34.188034"
+      },
+      {
+        "name": "fictional-b",
+        "market_value_base": "9600.000000",
+        "weight_percent": "27.350427"
+      },
+      {
+        "name": "fictional-c",
+        "market_value_base": "4500.000000",
+        "weight_percent": "12.820513"
+      }
+    ],
+    "unmapped_value_base": "0.000000",
+    "mapping_complete": true
+  },
+  "rebalance": {
+    "status": "not_requested"
+  },
+  "warnings": [
+    "partial_scope:not_a_complete_account_or_wealth_assessment"
+  ],
+  "method_notes": [
+    "Amounts and percentages are decimal strings rounded to six places for output; calculations use Decimal with 50-digit precision.",
+    "Cost basis = quantity × user average cost per share. Cash is excluded from investment cost basis and unrealized return denominator.",
+    "All FX conversions use supplied verified snapshot rates. Converted cost basis is not historical actual base-currency acquisition cost or FX-inclusive investment return.",
+    "Source verification is performed by the collecting agent; this offline calculator does not fetch or authenticate sources.",
+    "Date-only timestamps mean 00:00 UTC; use explicit timezone times for intraday cutoff analysis.",
+    "Missing prices remain unknown; zero is accepted only when explicitly supplied. No live-price claim or inferred risk objective."
+  ]
+}

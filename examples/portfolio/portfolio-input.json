@@ -1,0 +1,13 @@
+{
+  "example_notice": "합성 데이터입니다. 실제 보유 자산이나 현재 시세가 아닙니다.",
+  "base_currency": "KRW",
+  "as_of": "2026-10-16T09:00:00+09:00",
+  "coverage": "partial",
+  "max_price_age_days": 3,
+  "holdings": [
+    {"id":"synthetic-a","ticker":"SYNTH-A","market":"FICTIONAL","quantity":"12","average_cost":"800","cost_currency":"KRW","current_price":"1000","price_currency":"KRW","price_as_of":"2026-10-15T09:00:00+09:00","price_source":"합성 예시 입력; 실제 시세 아님","issuer_id":"fictional-a","sector":"가상 업종 X"},
+    {"id":"synthetic-b","ticker":"SYNTH-B","market":"FICTIONAL","quantity":"8","average_cost":"1400","cost_currency":"KRW","current_price":"1200","price_currency":"KRW","price_as_of":"2026-10-15T09:00:00+09:00","price_source":"합성 예시 입력; 실제 시세 아님","issuer_id":"fictional-b","sector":"가상 업종 X"},
+    {"id":"synthetic-c","ticker":"SYNTH-C","market":"FICTIONAL","quantity":"5","average_cost":"900","cost_currency":"KRW","current_price":"900","price_currency":"KRW","price_as_of":"2026-10-15T09:00:00+09:00","price_source":"합성 예시 입력; 실제 시세 아님","issuer_id":"fictional-c","sector":"가상 업종 Y"}
+  ],
+  "cash": [{"id":"synthetic-cash","currency":"KRW","amount":"9000"}]
+}

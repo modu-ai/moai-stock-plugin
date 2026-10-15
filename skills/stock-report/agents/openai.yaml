@@ -1,0 +1,6 @@
+interface:
+  display_name: "종목 심층 분석"
+  short_description: "특정 상장기업을 공시·뉴스·산업 원문으로 심층 조사하여 출처와 반론을 포함한 HTML 보고서 및 MoAI 오"
+  default_prompt: "$stock-report 스킬로 요청한 분석을 근거와 반대 논거까지 확인해 작성해 주세요."
+policy:
+  allow_implicit_invocation: true

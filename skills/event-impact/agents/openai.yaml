@@ -1,0 +1,6 @@
+interface:
+  display_name: "공시·뉴스 영향 분석"
+  short_description: "특정 기업의 새 공시·뉴스·산업 사건을 원문과 후속 자료로 확인하여 사업·실적·현금·투자 판단에 미치는 경로"
+  default_prompt: "$event-impact 스킬로 요청한 분석을 근거와 반대 논거까지 확인해 작성해 주세요."
+policy:
+  allow_implicit_invocation: true

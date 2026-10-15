@@ -1,0 +1,20 @@
+{
+  "name": "moai-stock-marketplace",
+  "interface": {
+    "displayName": "모두의 주식"
+  },
+  "plugins": [
+    {
+      "name": "moai-stock-plugin",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Data"
+    }
+  ]
+}

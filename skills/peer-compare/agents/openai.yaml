@@ -1,0 +1,6 @@
+interface:
+  display_name: "동종기업 비교"
+  short_description: "두 개 이상의 기업을 사업 범위·회계기간·통화·수익성과 현금흐름 기준을 맞춰 비교하고 차이와 반대 근거를 분"
+  default_prompt: "$peer-compare 스킬로 요청한 분석을 근거와 반대 논거까지 확인해 작성해 주세요."
+policy:
+  allow_implicit_invocation: true
